@@ -2,6 +2,7 @@ package com.connexus.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -28,5 +29,23 @@ public class PageController {
     public String servicesPage(Model model) {
         System.out.println("Services Page Loading");
         return "services";
+    }
+
+    // Contacts Route
+    @GetMapping("/contact")
+    public String contact() {
+        return new String("contact");
+    }
+
+    // Login Route
+    @GetMapping("/login")
+    public String login() {
+        return new String("login");
+    }
+
+    // Signup Route
+    @GetMapping("/register")
+    public String register() {
+        return new String("register");
     }
 }

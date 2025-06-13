@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Services Connexus</title>
 </head>
 
 <body>
-    <h1>This is Services Page</h1>
+    <section id="content">
+        <h1>Welcome to Services Page</h1>
+        <h2>Services offered by Connexus</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates modi commodi quis iusto debitis
+            repudiandae
+            sit pariatur doloribus illum necessitatibus!</p>
+    </section>
+
+    <script>
+        console.log("Services page script loaded");
+    </script>
 </body>
 
 </html>

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title id="title">About Connexus</title>
 </head>
 
 <body>
-    <h1>This is About Page</h1>
-    <hr>
-    <!-- Using Fragments -->
-    <div th:replace="~{base :: parent}"> </div>
+    <div id="content">
+        <h1>Welcome to About Page</h1>
+        <h2>About Connexus</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates modi commodi quis iusto debitis
+            repudiandae sit pariatur doloribus illum necessitatibus!</p>
+    </div>
+
+    <script id="script">
+        console.log("About page script loaded");
+    </script>
 </body>
 
 </html>

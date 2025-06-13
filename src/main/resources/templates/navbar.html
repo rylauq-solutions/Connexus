@@ -1,0 +1,73 @@
+<nav data-th-fragment="navbar" class="bg-stone-200 border-orange-200 dark:bg-stone-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+
+        <!-- Brand Logo Starts -->
+        <a th:href="@{'/'}" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="/images/Connexus-Monogram.png" th:src="@{/images/Connexus-Monogram.png}" class="h-8 w-auto"
+                alt="Connexus Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-amber-900 dark:text-orange-100">
+                Connexus
+            </span>
+        </a>
+        <!-- Brand Logo Ends -->
+
+        <div class="flex justify-center items-center gap-2 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            
+            <!-- Login Button -->
+            <a th:href="@{'/login'}" type="button"
+                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                Login
+            </a>
+            <!-- Signup Button -->
+            <a th:href="@{'/register'}" type="button"
+                class="text-white gap-2 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                Signup
+            </a>
+
+            <!-- Dark Theme -->
+             <button class="bg-amber-900 text-sm text-pink-50 px-3 py-2 rounded-xl cursor-pointer"><i class="fa-solid fa-circle-half-stroke"></i><span> Light</span></button>
+
+            <!-- Mobile menu button -->
+            <button data-collapse-toggle="navbar-cta" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-amber-700 rounded-lg md:hidden hover:bg-orange-100 focus:outline-none focus:ring-2 focus:ring-orange-200 dark:text-amber-600 dark:hover:bg-stone-700 dark:focus:ring-stone-600"
+                aria-controls="navbar-cta" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navbar Links -->
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <ul class="flex flex-col md:flex-row md:space-x-8 font-medium mt-4 md:mt-0 p-4 md:p-0 
+               border border-orange-100 md:border-0 rounded-lg md:rounded-none 
+               bg-orange-50 md:bg-transparent 
+               dark:bg-stone-800 md:dark:bg-transparent dark:border-stone-700">
+                <li>
+                    <a th:href="@{'/home'}"
+                        class="block py-2 px-3 md:p-0 text-orange-900 bg-red-700 md:bg-transparent rounded-sm md:text-red-700 md:dark:text-red-500"
+                        aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{'/about'}"
+                        class="block py-2 px-3 md:p-0 text-amber-900 hover:bg-orange-100 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:text-red-500 dark:text-orange-100 dark:hover:bg-stone-700 dark:hover:text-white">
+                        About</a>
+                </li>
+                <li>
+                    <a th:href="@{'/services'}"
+                        class="block py-2 px-3 md:p-0 text-amber-900 hover:bg-orange-100 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:text-red-500 dark:text-orange-100 dark:hover:bg-stone-700 dark:hover:text-white">
+                        Services</a>
+                </li>
+                <li>
+                    <a th:href="@{'/contact'}"
+                        class="block py-2 px-3 md:p-0 text-amber-900 hover:bg-orange-100 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:text-red-500 dark:text-orange-100 dark:hover:bg-stone-700 dark:hover:text-white">
+                        Contact</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
