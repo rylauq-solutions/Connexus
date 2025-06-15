@@ -1,35 +1,47 @@
 <!DOCTYPE html>
-<html class="dark" lang="en" th:fragment="parent(content, title, script)" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+<html
+  class="dark"
+  lang="en"
+  th:fragment="parent(content, title, script)"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
     <title data-th-replace="${title}">Connexus</title>
-</head>
+  </head>
 
-<!-- Font Awesome Link Starts -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  <!-- Font Awesome Link Starts -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Font Awesome Link Ends -->
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Font Awesome Link Ends -->
 
-<body class="bg-stone-200 border-orange-200 dark:bg-stone-900 dark:text-orange-100">
+  <body
+    class="bg-stone-100 border-orange-200 dark:bg-stone-900 dark:text-orange-100"
+  >
     <!-- Common Header -->
     <div th:replace="navbar::navbar"></div>
 
     <!-- Main Content -->
-    <div class="p-4 h-screen w-full bg-stone-100 dark:bg-stone-800">
-        <section data-th-replace="${content}"></section>
+    <div class="p-4 h-auto w-full bg-stone-100 dark:bg-stone-800">
+      <section data-th-replace="${content}"></section>
     </div>
+
     <!-- Common Footer -->
-    <footer class="p-4">Connexus: A Smart Contact Manager</footer>
+    <!-- <footer class="p-4">Connexus: A Smart Contact Manager</footer> -->
 
     <!-- Flow Bite Comtent -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <th:block data-th-replace="${script}"></th:block>
-
-</body>
-
+  </body>
 </html>
