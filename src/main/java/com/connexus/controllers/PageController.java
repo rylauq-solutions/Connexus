@@ -3,7 +3,11 @@ package com.connexus.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.connexus.forms.UserForm;
 
 @Controller
 public class PageController {
@@ -45,7 +49,27 @@ public class PageController {
 
     // Signup Route
     @GetMapping("/register")
-    public String register() {
-        return new String("register");
+    public String register(Model model) {
+        UserForm userForm = new UserForm();
+
+        model.addAttribute("userForm", userForm);
+        return "register";
+    }
+
+    // Processing Register
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm) {
+        System.out.println("Processing Registration");
+
+        // Fetch form data
+        
+        // Validate form data
+        // TODO: Add logic to handle registration
+
+        // Save user to database
+        
+        // Redirect to login page after successful registration
+
+        return "redirect:/register";
     }
 }
