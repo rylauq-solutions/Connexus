@@ -1,5 +1,6 @@
 package com.connexus.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +8,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.connexus.entities.User;
 import com.connexus.forms.UserForm;
+import com.connexus.services.UserService;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public String home(Model model) {
@@ -62,14 +68,27 @@ public class PageController {
         System.out.println("Processing Registration");
 
         // Fetch form data
-        
+
         // Validate form data
+
         // TODO: Add logic to handle registration
 
-        // Save user to database
-        
-        // Redirect to login page after successful registration
+        // *Saving user to database
+        // UserForm ===> User
+        User user = User.builder()
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .about(userForm.getAbout())
+                .phoneNumber(userForm.getPhoneNumber())
+                .profilePic("/images/Connexus-Monogram.png")
+                .build();
 
+        User savedUser = userService.saveUser(user);
+
+        System.out.println("User saved: " + savedUser);
+
+        // * Redirect to login page after successful registration
         return "redirect:/register";
     }
 }
