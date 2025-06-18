@@ -24,7 +24,7 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/home")
+    @RequestMapping("/")
     public String home(Model model) {
         System.out.println("Home Page Handler");
         model.addAttribute("name", "Connexus Application");

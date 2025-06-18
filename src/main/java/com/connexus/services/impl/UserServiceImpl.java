@@ -7,9 +7,11 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.connexus.entities.User;
+import com.connexus.helpers.AppConstants;
 import com.connexus.helpers.ResourceNotFoundException;
 import com.connexus.repositories.UserRepository;
 import com.connexus.services.UserService;
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -28,7 +33,13 @@ public class UserServiceImpl implements UserService {
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
 
-        // Todo: Encoding the password before saving
+        // * Encoding the password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // * Setting User role
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+
+        logger.info(user.getProvider().toString());
 
         return userRepository.save(user);
     }
