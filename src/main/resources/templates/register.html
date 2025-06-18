@@ -4,6 +4,11 @@
   th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}"
 >
   <head>
+    <link
+      rel="icon"
+      href="/images/Connexus-Monogram.png"
+      th:href="@{/images/Connexus-Monogram.png}"
+    />
     <title id="title">Signup</title>
   </head>
 
@@ -16,6 +21,9 @@
           <div
             class="block p-6 bg-stone-100 border-2 border-orange-200 rounded-lg hover:border-red-800 shadow-lg dark:bg-stone-900 dark:border-stone-700 dark:hover:border-orange-700"
           >
+            <!-- Message Box -->
+            <div data-th-replace="message :: messagebox"></div>
+
             <h5
               class="text-center mb-2 text-3xl font-bold tracking-tight text-amber-900 dark:text-orange-300"
             >
@@ -33,6 +41,7 @@
               th:object="${userForm}"
               method="post"
               class="mt-5"
+              novalidate
             >
               <!--* Name Field-->
               <div class="mb-3">
@@ -49,6 +58,11 @@
                   placeholder="Enter name..."
                   required
                 />
+                <p
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                  class="text-red-600 py-1 px-2"
+                ></p>
               </div>
 
               <!--* Email Field -->
@@ -66,6 +80,11 @@
                   placeholder="email@connexus.mng"
                   required
                 />
+                <p
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                  class="text-red-600 py-1 px-2"
+                ></p>
               </div>
 
               <!--* Password Field -->
@@ -83,6 +102,11 @@
                   placeholder="********"
                   required
                 />
+                <p
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                  class="text-red-600 py-1 px-2"
+                ></p>
               </div>
 
               <!--* Phone Number Field -->
@@ -99,6 +123,11 @@
                   class="bg-orange-50 border border-orange-300 text-amber-900 text-sm rounded-lg focus:ring-red-800 focus:border-red-800 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-700 dark:text-stone-900 dark:focus:ring-red-500 dark:focus:border-red-500"
                   placeholder="+91-9xxxxxxxx0"
                 />
+                <p
+                  th:if="${#fields.hasErrors('phoneNumber')}"
+                  th:errors="*{phoneNumber}"
+                  class="text-red-600 py-1 px-2"
+                ></p>
               </div>
 
               <!--** About Text Area -->
@@ -115,6 +144,11 @@
                   class="block p-2.5 w-full text-sm text-amber-900 bg-orange-50 rounded-lg border border-orange-300 focus:ring-red-800 focus:border-red-800 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-700 dark:text-stone-900 dark:focus:ring-red-500 dark:focus:border-red-500"
                   placeholder="Describe here..."
                 ></textarea>
+                <p
+                  th:if="${#fields.hasErrors('about')}"
+                  th:errors="*{about}"
+                  class="text-red-600 py-1 px-2"
+                ></p>
 
                 <!--* Buttons -->
                 <div class="flex justify-center mb-3 mt-4 space-x-3">
@@ -129,7 +163,7 @@
                   <!-- Reset Button  -->
                   <button
                     type="reset"
-                    class="px-4 py-2 rounded-lg bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-white dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 cursor-pointer"
+                    class="px-4 py-2 rounded-lg bg-orange-700 hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-white dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 cursor-pointer"
                   >
                     Reset
                   </button>
