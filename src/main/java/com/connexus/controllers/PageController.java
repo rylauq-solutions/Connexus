@@ -3,6 +3,7 @@ package com.connexus.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.connexus.entities.User;
 import com.connexus.forms.UserForm;
+import com.connexus.helpers.Message;
+import com.connexus.helpers.MessageType;
 import com.connexus.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class PageController {
@@ -64,29 +70,35 @@ public class PageController {
 
     // Processing Register
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,
+            HttpSession session) {
         System.out.println("Processing Registration");
 
         // Fetch form data
 
         // Validate form data
+        if (rBindingResult.hasErrors()) {
+            return "register";
+        }
 
         // TODO: Add logic to handle registration
 
         // *Saving user to database
-        // UserForm ===> User
-        User user = User.builder()
-                .name(userForm.getName())
-                .email(userForm.getEmail())
-                .password(userForm.getPassword())
-                .about(userForm.getAbout())
-                .phoneNumber(userForm.getPhoneNumber())
-                .profilePic("/images/Connexus-Monogram.png")
-                .build();
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfilePic("/images/Connexus-Monogram.png");
 
         User savedUser = userService.saveUser(user);
-
         System.out.println("User saved: " + savedUser);
+
+        // * Add success message to model
+        Message message = Message.builder().content("User registered successfully!").type(MessageType.green).build();
+
+        session.setAttribute("message", message);
 
         // * Redirect to login page after successful registration
         return "redirect:/register";
