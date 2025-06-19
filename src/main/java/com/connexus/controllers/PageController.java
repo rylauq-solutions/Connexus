@@ -17,6 +17,7 @@ import com.connexus.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PageController {
@@ -24,7 +25,14 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
+    // Home Route
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/home";
+    }
+
+    // Home Route
+    @RequestMapping("/home")
     public String home(Model model) {
         System.out.println("Home Page Handler");
         model.addAttribute("name", "Connexus Application");
