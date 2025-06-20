@@ -1,20 +1,105 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
-
-<head>
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
     <title id="title">Login</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="content">
-        <h1>Welcome to Login Page</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates modi commodi quis iusto debitis
-            repudiandae sit pariatur doloribus illum necessitatibus!</p>
+      <div class="grid grid-cols-12">
+        <div class="md:col-span-2 lg:col-span-3 xl:col-span-3"></div>
+        <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6">
+          <!-- Card -->
+          <div
+            class="block p-6 bg-stone-100 border-2 border-pink-200 rounded-lg hover:border-red-800 shadow-lg dark:bg-stone-900 dark:border-stone-700 dark:hover:border-orange-700"
+          >
+            <!-- Message Box -->
+            <div data-th-replace="message :: messagebox"></div>
+
+            <h5
+              class="text-center mb-2 text-3xl font-bold tracking-tight text-amber-900 dark:text-orange-300"
+            >
+              Login
+            </h5>
+            <p
+              class="font-normal text-center text-xl text-amber-700 dark:text-orange-200"
+            >
+              Organize Smarter... Connect Better...
+            </p>
+
+            <!-- Form starts here -->
+            <form class="mt-5">
+              <!--* Username Field -->
+              <div class="mb-3">
+                <label
+                  for="email"
+                  class="block mb-2 text-sm font-medium text-amber-900 dark:text-orange-100"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="bg-orange-50 border border-pink-300 text-amber-900 text-sm rounded-lg focus:ring-red-800 focus:border-red-800 block w-full p-2.5 dark:bg-orange-100 dark:border-stone-600 dark:placeholder-stone-900 dark:text-stone-900 dark:focus:ring-red-500 dark:focus:border-red-500"
+                  placeholder="email@connexus.mng"
+                  required
+                />
+                <!-- <p
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                  class="text-red-600 py-1 px-2"
+                ></p> -->
+              </div>
+
+              <!--* Password Field -->
+              <div class="mb-3">
+                <label
+                  for="password"
+                  class="block mb-2 text-sm font-medium text-amber-900 dark:text-orange-100"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  class="bg-orange-50 border border-pink-300 text-amber-900 text-sm rounded-lg focus:ring-red-800 focus:border-red-800 block w-full p-2.5 dark:bg-orange-100 dark:border-stone-600 dark:placeholder-stone-700 dark:text-stone-900 dark:focus:ring-red-500 dark:focus:border-red-500"
+                  placeholder="********"
+                  required
+                />
+                <!-- <p
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                  class="text-red-600 py-1 px-2"
+                ></p> -->
+              </div>
+
+              <!--* Buttons -->
+              <div class="flex justify-center mb-3 mt-4 space-x-3">
+                <!-- Submit Button  -->
+                <button
+                  type="submit"
+                  class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-white dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-700 cursor-pointer"
+                >
+                  Login
+                </button>
+
+                <!-- Reset Button  -->
+                <button
+                  type="reset"
+                  class="px-4 py-2 rounded-lg bg-orange-700 hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-white dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 cursor-pointer"
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script id="script">
-        console.log("Login page script loaded");
+      console.log("Login page script loaded");
     </script>
-</body>
-
+  </body>
 </html>
