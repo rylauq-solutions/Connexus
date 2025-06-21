@@ -1,17 +1,25 @@
 package com.connexus.config;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.connexus.services.impl.SecurityCustomUserDetailService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -68,7 +76,48 @@ public class SecurityConfig {
                 });
 
         // Default form login configuration
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(formLogin -> {
+            formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/authenticate");
+            formLogin.successForwardUrl("/user/dashboard");
+            // formLogin.failureUrl("/login?error=true");
+            formLogin.usernameParameter("email");
+            formLogin.passwordParameter("password");
+
+            // formLogin.failureHandler(new AuthenticationFailureHandler() {
+            // @Override
+            // public void onAuthenticationFailure(HttpServletRequest request,
+            // HttpServletResponse response,
+            // AuthenticationException exception) throws IOException, ServletException {
+            // // You can customize your failure response here
+            // throw new UnsupportedOperationException("Custom failure handler not
+            // implemented yet");
+            // }
+            // });
+
+            // formLogin.successHandler(new AuthenticationSuccessHandler() {
+            // @Override
+            // public void onAuthenticationSuccess(HttpServletRequest request,
+            // HttpServletResponse response,
+            // org.springframework.security.core.Authentication authentication)
+            // throws IOException, ServletException {
+            // // You can customize your success response here
+            // throw new UnsupportedOperationException("Custom success handler not
+            // implemented yet");
+            // }
+            // });
+
+        });
+
+        httpSecurity.csrf(csrf -> {
+            csrf.disable(); // Disabling CSRF for simplicity, not recommended for production
+        });
+        httpSecurity.logout(logout -> {
+            logout.logoutUrl("/do-logout");
+            logout.logoutSuccessUrl("/login?logout=true");
+            logout.invalidateHttpSession(true);
+            logout.deleteCookies("JSESSIONID");
+        });
 
         return httpSecurity.build();
     }

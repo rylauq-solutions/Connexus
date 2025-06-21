@@ -16,9 +16,6 @@
           <div
             class="block p-6 bg-stone-100 border-2 border-pink-200 rounded-lg hover:border-red-800 shadow-lg dark:bg-stone-900 dark:border-stone-700 dark:hover:border-orange-700"
           >
-            <!-- Message Box -->
-            <div data-th-replace="message :: messagebox"></div>
-
             <h5
               class="text-center mb-2 text-3xl font-bold tracking-tight text-amber-900 dark:text-orange-300"
             >
@@ -30,8 +27,15 @@
               Organize Smarter... Connect Better...
             </p>
 
+            <div class="text-center border-1 p-1 rounded-xl font-medium bg-red-100 m-2 text-red-600" th:if="${param.error}">
+              Invalid username or password!
+            </div>
+            <div class="text-center border-1 p-1 rounded-xl font-medium bg-green-100 m-2 text-green-600" th:if="${param.logout}">
+              You have been logged out!
+            </div>
+
             <!-- Form starts here -->
-            <form class="mt-5">
+            <form class="mt-5" method="post" th:action="@{/authenticate}">
               <!--* Username Field -->
               <div class="mb-3">
                 <label
@@ -40,6 +44,7 @@
                   >Email</label
                 >
                 <input
+                  name="email"
                   type="email"
                   id="email"
                   class="bg-orange-50 border border-pink-300 text-amber-900 text-sm rounded-lg focus:ring-red-800 focus:border-red-800 block w-full p-2.5 dark:bg-orange-100 dark:border-stone-600 dark:placeholder-stone-900 dark:text-stone-900 dark:focus:ring-red-500 dark:focus:border-red-500"
@@ -61,6 +66,7 @@
                   >Password</label
                 >
                 <input
+                  name="password"
                   type="password"
                   id="password"
                   class="bg-orange-50 border border-pink-300 text-amber-900 text-sm rounded-lg focus:ring-red-800 focus:border-red-800 block w-full p-2.5 dark:bg-orange-100 dark:border-stone-600 dark:placeholder-stone-700 dark:text-stone-900 dark:focus:ring-red-500 dark:focus:border-red-500"
