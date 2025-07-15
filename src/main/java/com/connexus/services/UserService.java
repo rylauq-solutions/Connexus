@@ -21,5 +21,7 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    User getUserByEmail(String email);
+
     // Additional methods can be defined as needed for user management
 }

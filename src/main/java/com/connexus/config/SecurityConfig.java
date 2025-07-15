@@ -15,7 +15,7 @@ import com.connexus.services.impl.SecurityCustomUserDetailService;
 @Configuration
 public class SecurityConfig {
 
-    // * Creating user and login functionality using Java with memory service
+    // // * Creating user and login functionality using Java with memory service
     // @Bean
     // public UserDetailsService userDetailsService() {
 

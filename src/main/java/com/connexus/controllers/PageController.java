@@ -60,13 +60,13 @@ public class PageController {
         return new String("contact");
     }
 
-    // Login Route
+    // Login Route -> This is Login Controller: view
     @GetMapping("/login")
     public String login() {
         return new String("login");
     }
 
-    // Signup Route
+    // Signup Route -> This is Registration Controller: view
     @GetMapping("/register")
     public String register(Model model) {
         UserForm userForm = new UserForm();
