@@ -1,25 +1,16 @@
 package com.connexus.config;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.connexus.services.impl.SecurityCustomUserDetailService;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -50,6 +41,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
+    @Autowired
+    private OAuthAuthenticationSuccessHandler handler;
+
     // * Configuration for AuthenticationProvider
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -79,7 +73,7 @@ public class SecurityConfig {
         httpSecurity.formLogin(formLogin -> {
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
-            formLogin.successForwardUrl("/user/dashboard");
+            formLogin.defaultSuccessUrl("/user/dashboard", true);
             // formLogin.failureUrl("/login?error=true");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
@@ -109,14 +103,21 @@ public class SecurityConfig {
 
         });
 
+        // Configuring HTTP Security for CSRF and Logout
         httpSecurity.csrf(csrf -> {
             csrf.disable(); // Disabling CSRF for simplicity, not recommended for production
         });
         httpSecurity.logout(logout -> {
             logout.logoutUrl("/do-logout");
             logout.logoutSuccessUrl("/login?logout=true");
-            logout.invalidateHttpSession(true);
-            logout.deleteCookies("JSESSIONID");
+            // logout.invalidateHttpSession(true);
+            // logout.deleteCookies("JSESSIONID");
+        });
+
+        // oAuth2 login configuration
+        httpSecurity.oauth2Login(oauth -> {
+            oauth.loginPage("/login");
+            oauth.successHandler(handler); // Use default success handler
         });
 
         return httpSecurity.build();

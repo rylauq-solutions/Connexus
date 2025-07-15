@@ -2,7 +2,6 @@ package com.connexus.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +50,7 @@ public class User implements UserDetails {
     @Column(length = 1000)
     private String about;
 
-    @Column(length = 1000)
+    @Column(length = 2048)
     private String profilePic;
 
     private String phoneNumber;

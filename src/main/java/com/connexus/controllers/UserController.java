@@ -2,7 +2,6 @@ package com.connexus.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     // * User Dashboard Page
-    @PostMapping("/dashboard")
+    @GetMapping("/dashboard")
     public String userDashboard() {
         System.out.println("User Dashboard Page");
         return "user/dashboard";
