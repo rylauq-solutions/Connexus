@@ -1,13 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>This is User Profile</h1>
-    <h1 th:text="${loggedInUser.name}"></h1>
-    <h1 th:text="${loggedInUser.email}"></h1>
-</body>
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
+    <title th:text="${loggedInUser.name} + ' | Profile'">Profile Page</title>
+  </head>
+
+  <body>
+    <div id="content">
+      <!--! LoggedInUser Sidebar -->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar::sidebar}"></div>
+      </div>
+
+      <!--! Main Content -->
+      <div class="sm:pl-55">
+        <h1>Welcome to Profile Page</h1>
+        <h2>Profile of Connexus</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates
+          modi commodi quis iusto debitis repudiandae sit pariatur doloribus
+          illum necessitatibus!
+        </p>
+      </div>
+    </div>
+
+    <script id="script">
+      console.log("Profile page script loaded");
+    </script>
+  </body>
 </html>

@@ -29,20 +29,28 @@
   <body
     class="bg-stone-100 border-orange-200 dark:bg-stone-900 dark:text-orange-100"
   >
-    <!-- Common Header -->
-    <div th:replace="navbar::navbar"></div>
+    <!--! Common Header -->
+    <!-- LoggedInUser Navbar -->
+    <div th:if="${loggedInUser}">
+      <div th:replace="~{user/user_navbar::user-navbar}"></div>
+    </div>
+    <!-- Common Navbar -->
+    <div th:unless="${loggedInUser}">
+      <div th:replace="~{navbar::navbar}"></div>
+    </div>
 
-    <!-- Main Content -->
+
+    <!--! Main Content -->
     <div
-      class="min-h-screen w-full p-4 overflow-hidden bg-stone-100 dark:bg-stone-800"
+      class="min-h-screen w-full p-4 pt-20 overflow-hidden bg-stone-100 dark:bg-stone-800"
     >
       <section data-th-replace="${content}"></section>
     </div>
 
-    <!-- Common Footer -->
+    <!--! Common Footer -->
     <!-- <footer class="p-4">Connexus: A Smart Contact Manager</footer> -->
 
-    <!-- Flow Bite Comtent -->
+    <!--! Flow Bite Comtent -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <th:block data-th-replace="${script}"></th:block>
   </body>
