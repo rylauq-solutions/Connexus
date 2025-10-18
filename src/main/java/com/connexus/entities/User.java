@@ -25,6 +25,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "user")
 @Table(name = "users")
@@ -32,6 +33,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "contacts")
 public class User implements UserDetails {
 
     // Basic Information
