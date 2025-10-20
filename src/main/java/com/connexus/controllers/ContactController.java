@@ -1,5 +1,9 @@
 package com.connexus.controllers;
 
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,7 @@ import com.connexus.helpers.Helper;
 import com.connexus.helpers.Message;
 import com.connexus.helpers.MessageType;
 import com.connexus.services.ContactService;
+import com.connexus.services.ImageService;
 import com.connexus.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,8 +30,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/user/contacts")
 public class ContactController {
 
+    private static Logger logger = LoggerFactory.getLogger(ContactController.class);
+
     @Autowired
     private ContactService contactService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private UserService userService;
@@ -55,7 +65,9 @@ public class ContactController {
         // Form to Contact
         User user = userService.getUserByEmail(username);
 
-        // todo Process profile image upload
+        // Process profile image upload
+        String fileName = UUID.randomUUID().toString();
+        String fileURL = imageService.uploadContactImage(contactForm.getContactImage(), fileName);
 
         Contact contact = new Contact();
         contact.setName(contactForm.getName());
@@ -67,6 +79,8 @@ public class ContactController {
         contact.setUser(user);
         contact.setLinkedInLink(contactForm.getLinkedInLink());
         contact.setWebsiteLink(contactForm.getWebsiteLink());
+        contact.setPicture(fileURL);
+        contact.setCloudinaryImagepublicId(fileName);
 
         // Saving to database
         contactService.saveContact(contact);

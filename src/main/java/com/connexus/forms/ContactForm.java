@@ -41,5 +41,8 @@ public class ContactForm {
     @Pattern(regexp = "^(|https?://(www\\.)?linkedin\\.com/.*)$", message = "Please enter a valid LinkedIn profile URL!")
     private String linkedInLink;
 
-    private MultipartFile profileImage;
+    // todo: Create a custom annotation for image file type and size validation
+    // size
+    // resolution
+    private MultipartFile contactImage;
 }

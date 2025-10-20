@@ -251,24 +251,74 @@
                 </div>
 
                 <!-- Profile Photo -->
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                   <label
                     class="block mb-2 text-sm font-medium text-amber-900 dark:text-orange-100"
                     for="contact-image"
                     >Contact Image</label
                   >
                   <input
+                  id="image_file_input"
                     class="block w-full text-md text-amber-900 border border-red-300 rounded-lg cursor-pointer bg-stone-50 dark:text-amber-900 focus:outline-none dark:bg-orange-100 dark:border-stone-600 dark:placeholder-stone-700 file:m-1 file:py-2 file:px-4 file:rounded-full file:border-1 file:border-red-400 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-200 dark:file:bg-red-100 dark:file:text-red-800 transition-all duration-200"
-                    th:field="*{profileImage}"
+                    th:field="*{contactImage}"
                     type="file"
                     accept="image/*"
                   />
+                  <img src="" id="upload_image_preview" alt="" />
                   <p
-                    th:if="${#fields.hasErrors('profileImage')}"
-                    th:errors="*{profileImage}"
+                    th:if="${#fields.hasErrors('contactImage')}"
+                    th:errors="*{contactImage}"
                     class="text-red-600 text-sm mt-1"
                   ></p>
-                </div>
+                </div> -->
+
+
+
+<!-- Profile Photo -->
+<div class="mb-4">
+  <label
+    class="block mb-2 text-sm font-medium text-amber-900 dark:text-orange-100"
+    for="contact-image"
+    >Contact Image</label
+  >
+  <input
+    id="image_file_input"
+    class="block w-full text-md text-amber-900 border border-red-300 rounded-lg cursor-pointer bg-stone-50 dark:text-amber-900 focus:outline-none dark:bg-orange-100 dark:border-stone-600 dark:placeholder-stone-700 file:m-1 file:py-2 file:px-4 file:rounded-full file:border-1 file:border-red-400 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-200 dark:file:bg-red-100 dark:file:text-red-800 transition-all duration-200"
+    th:field="*{contactImage}"
+    type="file"
+    accept="image/*"
+  />
+  
+  <!-- Image Preview Container -->
+  <div class="mt-4 flex justify-center">
+    <img 
+      src="" 
+      id="upload_image_preview" 
+      alt="" 
+      class="max-w-xs max-h-64 rounded-lg border-2 border-red-300 dark:border-stone-600 shadow-md object-cover hidden"
+    />
+  </div>
+  
+  <p
+    th:if="${#fields.hasErrors('contactImage')}"
+    th:errors="*{contactImage}"
+    class="text-red-600 text-sm mt-1"
+  ></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
 
                 <!-- Is Favorite -->
                 <div class="flex items-center mb-6">
@@ -308,6 +358,8 @@
         </div>
       </div>
     </div>
+
+    <script th:src="@{/js/admin.js}"></script>
 
     <script id="script">
       console.log("Add Contact page script loaded");
