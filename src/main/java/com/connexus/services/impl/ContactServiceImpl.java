@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.connexus.entities.Contact;
+import com.connexus.entities.User;
 import com.connexus.helpers.ResourceNotFoundException;
 import com.connexus.repositories.ContactRepository;
 import com.connexus.services.ContactService;
@@ -56,6 +57,11 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public List<Contact> getContactsByUserId(String userId) {
         return contactRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<Contact> getContactsByUser(User user) {
+        return contactRepository.findByUser(user);
     }
 
 }

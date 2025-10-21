@@ -3,6 +3,7 @@ package com.connexus.services;
 import java.util.List;
 
 import com.connexus.entities.Contact;
+import com.connexus.entities.User;
 
 public interface ContactService {
     // Save Contacts
@@ -25,4 +26,7 @@ public interface ContactService {
 
     // Get Contacts by User ID
     List<Contact> getContactsByUserId(String userId);
+    
+    // Get Contacts by User
+    List<Contact> getContactsByUser(User user);
 }
