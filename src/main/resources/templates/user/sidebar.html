@@ -92,10 +92,10 @@
         </a>
       </li>
 
-      <!-- Inbox -->
+      <!-- All Contacts -->
       <li>
         <a
-          href="#"
+          th:href="@{/user/contacts}"
           class="flex items-center p-2 text-amber-800 rounded-lg dark:text-orange-100 hover:bg-orange-100 dark:hover:bg-stone-700 group"
         >
           <svg
@@ -105,14 +105,10 @@
             viewBox="0 0 20 20"
           >
             <path
-              d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"
+              d="M2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3Zm4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-3 9a4 4 0 0 1 6 0h-6Zm9-6h4a1 1 0 1 0 0-2h-4a1 1 0 1 0 0 2Zm0 4h4a1 1 0 1 0 0-2h-4a1 1 0 1 0 0 2Zm0 4h4a1 1 0 1 0 0-2h-4a1 1 0 1 0 0 2Z"
             />
           </svg>
-          <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>
-          <span
-            class="inline-flex items-center justify-center w-5 h-5 text-xs font-medium text-white bg-red-700 rounded-full dark:bg-red-700"
-            >3</span
-          >
+          <span class="flex-1 ms-3 whitespace-nowrap">All Contacts</span>
         </a>
       </li>
 

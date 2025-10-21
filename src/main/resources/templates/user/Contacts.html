@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
+    <!-- Font Awesome 6 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-dXFPdCWpNjvFZDNGoW9vTmqZ/xxHYF7LQwU5T5mLNkBtvwH8E9tXf+a0xYiXJz9XN3Ux1Q4VPPRHJ2Ph0vms0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title th:text="${loggedInUser.name} + ' | All Contacts'">
+      All Your Contacts
+    </title>
+  </head>
+
+  <body>
+    <div id="content">
+      <!--! LoggedInUser Sidebar -->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar::sidebar}"></div>
+      </div>
+
+      <!--! Main Content -->
+      <div class="sm:pl-55 flex flex-col items-center p-6">
+        <h1 class="text-3xl font-bold text-amber-900 dark:text-orange-300 mb-2">
+          All Your Contacts
+        </h1>
+        <p class="text-amber-700 dark:text-orange-200 mb-6">
+          Cloud-synced, always accessible, and ready to connect — manage your
+          contacts effortlessly with Connexus.
+        </p>
+
+        <!-- Contacts Container -->
+        <div class="contact_container w-full max-w-7xl">
+          <div
+            class="relative overflow-x-auto shadow-lg sm:rounded-lg border-2 border-red-200 dark:border-stone-700"
+          >
+            <div
+              class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 p-4 bg-stone-100 dark:bg-stone-800"
+            >
+              <div>
+                <button
+                  id="dropdownActionButton"
+                  data-dropdown-toggle="dropdownAction"
+                  class="inline-flex items-center text-amber-900 bg-stone-50 border border-red-300 focus:outline-none hover:bg-red-50 focus:ring-4 focus:ring-red-200 font-medium rounded-lg text-sm px-4 py-2 dark:bg-stone-700 dark:text-orange-600 dark:border-stone-600 dark:hover:bg-stone-600 dark:focus:ring-red-700 transition-all duration-200"
+                  type="button"
+                >
+                  <span class="sr-only">Action button</span>
+                  Action
+                  <svg
+                    class="w-2.5 h-2.5 ms-2.5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div
+                  id="dropdownAction"
+                  class="z-10 hidden bg-stone-50 divide-y divide-red-200 rounded-lg shadow-lg w-44 dark:bg-stone-900 dark:divide-stone-700 border border-red-300 dark:border-stone-600"
+                >
+                  <ul
+                    class="py-1 text-sm text-amber-900 dark:text-orange-200"
+                    aria-labelledby="dropdownActionButton"
+                  >
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-red-50 dark:hover:bg-stone-600 dark:hover:text-orange-100 transition-all duration-200"
+                        >Reward</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-red-50 dark:hover:bg-stone-600 dark:hover:text-orange-100 transition-all duration-200"
+                        >Promote</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-red-50 dark:hover:bg-stone-600 dark:hover:text-orange-100 transition-all duration-200"
+                        >Activate account</a
+                      >
+                    </li>
+                  </ul>
+                  <div class="py-1">
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 dark:hover:bg-stone-600 dark:text-red-400 dark:hover:text-red-300 transition-all duration-200"
+                      >Delete User</a
+                    >
+                  </div>
+                </div>
+              </div>
+              
+              <!-- ! Search Bar -->
+              <label for="table-search" class="sr-only">Search</label>
+              <div class="relative">
+                <div
+                  class="flex items-center bg-stone-50 border-1 rounded-lg border-red-300 dark:bg-stone-700 dark:border-stone-600 transition-all duration-200"
+                >
+                  <div class="flex items-center justify-center w-10 h-10">
+                    <svg
+                      class="w-4 h-4 text-amber-700 dark:text-orange-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="table-search-users"
+                    class="block w-full p-2.5 text-sm text-amber-900 placeholder-amber-700 bg-stone-50 border-0 rounded-r-lg focus:outline-none focus:ring-0 focus:border-none dark:bg-stone-700 dark:text-orange-700 font-semibold dark:placeholder-amber-700"
+                    placeholder="Search for contacts"
+                  />
+                </div>
+              </div>
+            </div>
+            <table
+              class="w-full text-sm text-left rtl:text-right text-amber-900 dark:text-orange-200"
+            >
+              <thead
+                class="text-xs text-amber-800 uppercase bg-stone-200 dark:bg-stone-900 dark:text-orange-200 border-b-2 border-red-300 dark:border-stone-600"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-4 font-bold">Name</th>
+                  <th scope="col" class="px-6 py-4 font-bold">Phone Number</th>
+                  <th scope="col" class="px-6 py-4 font-bold">Links</th>
+                  <th scope="col" class="px-6 py-4 font-bold">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  th:each="contact : ${contacts}"
+                  th:object="${contact}"
+                  class="bg-stone-50 border-b dark:bg-stone-800 dark:border-stone-700 border-red-200 hover:bg-red-50 dark:hover:bg-stone-700 transition-all duration-200"
+                >
+                  <th
+                    scope="row"
+                    class="flex items-center px-6 py-4 text-amber-900 whitespace-nowrap dark:text-orange-100"
+                  >
+                    <img
+                      onerror="this.src='https://i.pinimg.com/736x/f2/d6/d2/f2d6d26e83996554e9334afd3c730dbe.jpg'"
+                      class="w-10 h-10 rounded-full border-2 border-red-300 dark:border-stone-600 shadow-md"
+                      th:src="@{*{picture}}"
+                      src="/docs/images/people/profile-picture-1.jpg"
+                      alt="Contact image"
+                    />
+                    <div class="ps-3">
+                      <div
+                        class="text-base font-semibold text-amber-900 dark:text-orange-100"
+                        th:text="*{name}"
+                      ></div>
+                      <div
+                        class="font-normal text-amber-700 dark:text-orange-300"
+                        th:text="*{email}"
+                      ></div>
+                    </div>
+                  </th>
+                  <td class="px-6 py-4 text-amber-900 dark:text-orange-200">
+                    <i
+                      class="fa-solid fa-phone w-4 h-4 text-red-600 dark:text-orange-400 mr-2"
+                    ></i>
+                    <span th:text="*{phoneNumber}"></span>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        th:if="*{favorite}"
+                        class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"
+                      ></div>
+
+                      <a
+                        th:href="@{*{websiteLink}}"
+                        target="_blank"
+                        class="text-amber-900 dark:text-orange-300 hover:text-red-600 dark:hover:text-orange-100 transition-all duration-200"
+                        ><i class="fa-solid fa-link w-5 h-5"></i
+                      ></a>
+                      <a
+                        th:href="@{*{linkedInLink}}"
+                        target="_blank"
+                        class="text-amber-900 dark:text-orange-300 hover:text-red-600 dark:hover:text-orange-100 transition-all duration-200"
+                        ><i class="fa-brands fa-linkedin-in w-5 h-5"></i
+                      ></a>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-3">
+                      <a
+                        href=""
+                        class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition-all duration-200"
+                      >
+                        <i class="fa fa-trash h-5 w-5" aria-hidden="true"></i>
+                      </a>
+                      <a
+                        href=""
+                        class="text-amber-900 dark:text-orange-300 hover:text-red-600 dark:hover:text-orange-100 transition-all duration-200"
+                      >
+                        <i class="fa-solid fa-pen-to-square h-5 w-5"></i>
+                      </a>
+                      <a
+                        href=""
+                        class="text-amber-900 dark:text-orange-300 hover:text-red-600 dark:hover:text-orange-100 transition-all duration-200"
+                      >
+                        <i class="fa-regular fa-eye h-5 w-5"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script id="script">
+      console.log("All Contacts page script loaded");
+    </script>
+  </body>
+</html>
