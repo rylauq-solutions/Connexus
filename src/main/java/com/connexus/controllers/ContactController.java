@@ -1,5 +1,6 @@
 package com.connexus.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -95,4 +96,15 @@ public class ContactController {
         return "redirect:/user/contacts/add";
     }
 
+    @RequestMapping
+    public String viewContacts(Model model, Authentication authentication) {
+        // Load all the contacts of user
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+
+        User user = userService.getUserByEmail(username);
+        List<Contact> contacts = contactService.getContactsByUser(user);
+        model.addAttribute("contacts", contacts);
+
+        return "user/contacts";
+    }
 }
