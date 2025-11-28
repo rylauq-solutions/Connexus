@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.connexus.entities.Contact;
 import com.connexus.entities.User;
 import com.connexus.forms.ContactForm;
+import com.connexus.helpers.AppConstants;
 import com.connexus.helpers.Helper;
 import com.connexus.helpers.Message;
 import com.connexus.helpers.MessageType;
@@ -97,13 +100,18 @@ public class ContactController {
     }
 
     @RequestMapping
-    public String viewContacts(Model model, Authentication authentication) {
+    public String viewContacts(@RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction, Model model,
+            Authentication authentication) {
         // Load all the contacts of user
         String username = Helper.getEmailOfLoggedInUser(authentication);
 
         User user = userService.getUserByEmail(username);
-        List<Contact> contacts = contactService.getContactsByUser(user);
-        model.addAttribute("contacts", contacts);
+        Page<Contact> pageContact = contactService.getContactsByUser(user, page, size, sortBy, direction);
+        model.addAttribute("pageContact", pageContact);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
 
         return "user/contacts";
     }

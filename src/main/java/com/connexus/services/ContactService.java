@@ -2,6 +2,8 @@ package com.connexus.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.connexus.entities.Contact;
 import com.connexus.entities.User;
 
@@ -26,7 +28,7 @@ public interface ContactService {
 
     // Get Contacts by User ID
     List<Contact> getContactsByUserId(String userId);
-    
+
     // Get Contacts by User
-    List<Contact> getContactsByUser(User user);
+    Page<Contact> getContactsByUser(User user, int page, int size, String sortField, String direction);
 }
