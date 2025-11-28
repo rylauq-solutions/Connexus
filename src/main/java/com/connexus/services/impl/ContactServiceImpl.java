@@ -52,12 +52,6 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<Contact> searchContacts(String name, String email, String phoneNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchContacts'");
-    }
-
-    @Override
     public List<Contact> getContactsByUserId(String userId) {
         return contactRepository.findByUserId(userId);
     }
@@ -68,6 +62,30 @@ public class ContactServiceImpl implements ContactService {
         Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, sort);
         return contactRepository.findByUser(user, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchContactsByName(String nameKeyword, int size, int page, String sortBy, String order,
+            User user) {
+        var pageable = PageRequest.of(page, size,
+                order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+        return contactRepository.findByUserAndNameContaining(user, nameKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchContactsByEmail(String emailKeyword, int size, int page, String sortBy, String order,
+            User user) {
+        var pageable = PageRequest.of(page, size,
+                order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+        return contactRepository.findByUserAndEmailContaining(user, emailKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchContactsByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy,
+            String order, User user) {
+        var pageable = PageRequest.of(page, size,
+                order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+        return contactRepository.findByUserAndPhoneNumberContaining(user, phoneNumberKeyword, pageable);
     }
 
 }

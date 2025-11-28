@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,5 +115,45 @@ public class ContactController {
         model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
 
         return "user/contacts";
+    }
+
+    // Search handler
+    @RequestMapping("/search")
+    public String searchContacts(
+            @RequestParam("field") String field,
+            @RequestParam("keyword") String keyword,
+            @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,
+            Model model,
+            Authentication authentication) {
+
+        logger.info("Field: {}", field);
+        logger.info("Keyword: {}", keyword);
+
+        User user = userService.getUserByEmail(
+                Helper.getEmailOfLoggedInUser(authentication));
+
+        Page<Contact> pageContact;
+        if (field.equalsIgnoreCase("name")) {
+            pageContact = contactService.searchContactsByName(
+                    keyword, size, page, sortBy, direction, user);
+        } else if (field.equalsIgnoreCase("email")) {
+            pageContact = contactService.searchContactsByEmail(
+                    keyword, size, page, sortBy, direction, user);
+        } else if (field.equalsIgnoreCase("phone") || field.equalsIgnoreCase("phoneNumber")) {
+            pageContact = contactService.searchContactsByPhoneNumber(
+                    keyword, size, page, sortBy, direction, user);
+        } else {
+            pageContact = Page.empty();
+        }
+
+        model.addAttribute("pageContact", pageContact);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("searchField", field);
+        model.addAttribute("searchKeyword", keyword);
+
+        return "user/search";
     }
 }
