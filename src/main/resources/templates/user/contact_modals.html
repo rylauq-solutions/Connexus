@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="contact_modals">
+      <!-- VIEW CONTACT MODAL -->
+      <div
+        id="view-contact-modal"
+        style="display: none"
+        class="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      >
+        <div
+          class="w-full max-w-lg bg-stone-50 dark:bg-stone-800 border-2 border-red-300 dark:border-stone-700 rounded-xl shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto"
+        >
+          <!-- Close Button -->
+          <button
+            onclick="closeViewModal()"
+            class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-100 dark:hover:bg-stone-700 transition-colors duration-200 z-10"
+          >
+            <i
+              class="fa-solid fa-xmark text-xl text-amber-900 dark:text-orange-300"
+            ></i>
+          </button>
+
+          <!-- Modal Header -->
+          <h2
+            class="text-2xl font-bold text-amber-900 dark:text-orange-300 mb-6 pr-8"
+          >
+            Contact Details
+          </h2>
+
+          <!-- Contact Info -->
+          <div class="space-y-5">
+            <!-- Profile Section -->
+            <div
+              class="flex items-center gap-4 pb-4 border-b-2 border-red-200 dark:border-stone-700"
+            >
+              <img
+                id="view-picture"
+                onerror="this.src='https://i.pinimg.com/736x/f2/d6/d2/f2d6d26e83996554e9334afd3c730dbe.jpg'"
+                class="w-20 h-20 rounded-full border-2 border-red-300 dark:border-stone-600 shadow-md"
+              />
+
+              <div class="flex-1">
+                <h3
+                  id="view-name"
+                  class="text-xl font-semibold text-amber-900 dark:text-orange-100 mb-1"
+                ></h3>
+                <p
+                  id="view-email"
+                  class="text-sm text-amber-700 dark:text-orange-300 break-words"
+                ></p>
+              </div>
+            </div>
+
+            <!-- Phone Section -->
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center rounded-lg bg-red-100 dark:bg-stone-700"
+              >
+                <i
+                  class="fa-solid fa-phone text-red-600 dark:text-orange-400"
+                ></i>
+              </div>
+              <div>
+                <p
+                  class="text-xs text-amber-700 dark:text-orange-400 uppercase font-semibold"
+                >
+                  Phone Number
+                </p>
+                <p
+                  id="view-phone"
+                  class="text-sm font-semibold text-amber-900 dark:text-orange-200"
+                ></p>
+              </div>
+            </div>
+
+            <!-- Website Section -->
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center rounded-lg bg-red-100 dark:bg-stone-700"
+              >
+                <i
+                  class="fa-solid fa-link text-red-600 dark:text-orange-400"
+                ></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p
+                  class="text-xs text-amber-700 dark:text-orange-400 uppercase font-semibold"
+                >
+                  Website
+                </p>
+                <a
+                  id="view-website"
+                  class="text-sm font-semibold text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:underline truncate block"
+                  target="_blank"
+                ></a>
+              </div>
+            </div>
+
+            <!-- LinkedIn Section -->
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center rounded-lg bg-red-100 dark:bg-stone-700"
+              >
+                <i
+                  class="fa-brands fa-linkedin-in text-red-600 dark:text-orange-400"
+                ></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p
+                  class="text-xs text-amber-700 dark:text-orange-400 uppercase font-semibold"
+                >
+                  LinkedIn
+                </p>
+                <a
+                  id="view-linkedin"
+                  class="text-sm font-semibold text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:underline truncate block"
+                  target="_blank"
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

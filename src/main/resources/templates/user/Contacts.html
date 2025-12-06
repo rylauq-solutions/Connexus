@@ -205,8 +205,15 @@
                           <i class="fa-solid fa-pen-to-square h-5 w-5"></i>
                         </a>
                         <a
-                          href=""
-                          class="text-amber-900 dark:text-orange-300 hover:text-red-600 dark:hover:text-orange-100 transition-all duration-200"
+                          onclick="openViewModal(this)"
+                          th:data-id="*{id}"
+                          th:data-name="*{name}"
+                          th:data-email="*{email}"
+                          th:data-phone="*{phoneNumber}"
+                          th:data-picture="*{picture}"
+                          th:data-website="*{websiteLink}"
+                          th:data-linkedin="*{linkedInLink}"
+                          class="text-amber-900 dark:text-orange-300 hover:text-red-600 dark:hover:text-orange-100 transition-all duration-200 cursor-pointer"
                         >
                           <i class="fa-regular fa-eye h-5 w-5"></i>
                         </a>
@@ -266,10 +273,82 @@
           </div>
         </div>
       </div>
+
+      <!-- Include Contact Modals -->
+      <div th:replace="~{user/contact_modals::contact_modals}"></div>
     </div>
 
     <script id="script">
       console.log("All Contacts page script loaded");
+
+      function openViewModal(element) {
+        // Get data from the clicked element
+        const name = element.getAttribute("data-name");
+        const email = element.getAttribute("data-email");
+        const phone = element.getAttribute("data-phone");
+        const picture = element.getAttribute("data-picture");
+        const website = element.getAttribute("data-website");
+        const linkedin = element.getAttribute("data-linkedin");
+
+        // Populate modal fields
+        document.getElementById("view-name").textContent = name || "N/A";
+        document.getElementById("view-email").textContent = email || "N/A";
+        document.getElementById("view-phone").textContent = phone || "N/A";
+
+        const pictureElement = document.getElementById("view-picture");
+        pictureElement.src =
+          picture ||
+          "https://i.pinimg.com/736x/f2/d6/d2/f2d6d26e83996554e9334afd3c730dbe.jpg";
+
+        const websiteLink = document.getElementById("view-website");
+        if (website && website !== "null" && website !== "") {
+          websiteLink.href = website;
+          websiteLink.textContent = website;
+        } else {
+          websiteLink.href = "#";
+          websiteLink.textContent = "N/A";
+        }
+
+        const linkedinLink = document.getElementById("view-linkedin");
+        if (linkedin && linkedin !== "null" && linkedin !== "") {
+          linkedinLink.href = linkedin;
+          linkedinLink.textContent = linkedin;
+        } else {
+          linkedinLink.href = "#";
+          linkedinLink.textContent = "N/A";
+        }
+
+        // Show modal
+        document.getElementById("view-contact-modal").style.display = "flex";
+
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeViewModal() {
+        document.getElementById("view-contact-modal").style.display = "none";
+
+        // Restore body scroll
+        document.body.style.overflow = "auto";
+      }
+
+      // Close modal when clicking outside
+      document.addEventListener("click", function (event) {
+        const modal = document.getElementById("view-contact-modal");
+        if (event.target === modal) {
+          closeViewModal();
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          const modal = document.getElementById("view-contact-modal");
+          if (modal.style.display === "flex") {
+            closeViewModal();
+          }
+        }
+      });
     </script>
   </body>
 </html>
