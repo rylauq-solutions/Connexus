@@ -180,4 +180,91 @@ public class ContactController {
         return "redirect:/user/contacts";
     }
 
+    // View to Update Contact
+    @RequestMapping("/update/{contactId}")
+    public String updateContactFormView(
+            @PathVariable("contactId") String contactId,
+            Model model) {
+
+        var contact = contactService.getContactById(contactId);
+
+        ContactForm contactForm = new ContactForm();
+        contactForm.setName(contact.getName());
+        contactForm.setEmail(contact.getEmail());
+        contactForm.setPhoneNumber(contact.getPhoneNumber());
+        contactForm.setAddress(contact.getAddress());
+        contactForm.setDescription(contact.getDescription());
+        contactForm.setFavorite(contact.isFavorite());
+        contactForm.setWebsiteLink(contact.getWebsiteLink());
+        contactForm.setLinkedInLink(contact.getLinkedInLink());
+        contactForm.setPicture(contact.getPicture());
+
+        model.addAttribute("contactForm", contactForm);
+        model.addAttribute("contactId", contactId);
+
+        return "user/update_contact";
+    }
+
+    // Process Update Contact
+    @PostMapping("/update/{contactId}")
+    public String updateContact(
+            @PathVariable("contactId") String contactId,
+            @Valid @ModelAttribute ContactForm contactForm,
+            BindingResult result,
+            Model model,
+            HttpSession session) {
+
+        // Validate Form
+        if (result.hasErrors()) {
+            session.setAttribute("message",
+                    Message.builder()
+                            .content("Please correct the errors in the form!")
+                            .type(MessageType.red)
+                            .build());
+            model.addAttribute("contactId", contactId);
+
+            // Preserve the existing picture URL on validation error
+            var contact = contactService.getContactById(contactId);
+            contactForm.setPicture(contact.getPicture());
+
+            return "user/update_contact";
+        }
+
+        // Get existing contact
+        var contact = contactService.getContactById(contactId);
+
+        // Update contact fields
+        contact.setName(contactForm.getName());
+        contact.setEmail(contactForm.getEmail());
+        contact.setPhoneNumber(contactForm.getPhoneNumber());
+        contact.setAddress(contactForm.getAddress());
+        contact.setDescription(contactForm.getDescription());
+        contact.setFavorite(contactForm.isFavorite());
+        contact.setWebsiteLink(contactForm.getWebsiteLink());
+        contact.setLinkedInLink(contactForm.getLinkedInLink());
+
+        // Process image upload if new file is provided
+        if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
+            String fileName = UUID.randomUUID().toString();
+            String fileURL = imageService.uploadContactImage(contactForm.getContactImage(), fileName);
+            contact.setPicture(fileURL);
+            contact.setCloudinaryImagepublicId(fileName);
+            logger.info("Contact image updated: {}", fileURL);
+        }
+        // If no new image, keep the existing one (don't change picture field)
+
+        // Save updated contact
+        contactService.updateContact(contact);
+
+        session.setAttribute("message",
+                Message.builder()
+                        .content("Contact updated successfully!")
+                        .type(MessageType.green)
+                        .build());
+
+        logger.info("Contact updated with id: {}", contactId);
+
+        return "redirect:/user/contacts";
+    }
+
 }

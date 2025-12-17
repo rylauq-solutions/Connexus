@@ -45,4 +45,8 @@ public class ContactForm {
     // size
     // resolution
     private MultipartFile contactImage;
+
+    // For displaying current image in update form
+    private String picture;
+
 }

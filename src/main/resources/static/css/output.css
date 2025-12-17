@@ -380,6 +380,9 @@
   .inline {
     display: inline;
   }
+  .inline-block {
+    display: inline-block;
+  }
   .inline-flex {
     display: inline-flex;
   }
@@ -409,6 +412,9 @@
   }
   .h-screen {
     height: 100vh;
+  }
+  .max-h-48 {
+    max-height: calc(var(--spacing) * 48);
   }
   .max-h-64 {
     max-height: calc(var(--spacing) * 64);
