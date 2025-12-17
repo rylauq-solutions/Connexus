@@ -193,8 +193,10 @@
                     <td class="px-4 sm:px-6 py-4">
                       <div class="flex gap-3">
                         <a
-                          href=""
-                          class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition-all duration-200"
+                          onclick="openDeleteModal(this)"
+                          th:data-id="*{id}"
+                          th:data-name="*{name}"
+                          class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition-all duration-200 cursor-pointer"
                         >
                           <i class="fa fa-trash h-5 w-5" aria-hidden="true"></i>
                         </a>
@@ -276,6 +278,46 @@
 
       <!-- Include Contact Modals -->
       <div th:replace="~{user/contact_modals::contact_modals}"></div>
+
+      <!-- Delete Confirmation Modal -->
+      <div
+        id="delete-contact-modal"
+        style="display: none"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white dark:bg-stone-800 rounded-lg shadow-xl p-6 max-w-md w-full mx-4"
+        >
+          <h3
+            class="text-xl font-bold text-amber-900 dark:text-orange-300 mb-4"
+          >
+            <i class="fa fa-trash text-red-600 mr-2"></i>Delete Contact
+          </h3>
+          <p class="text-amber-700 dark:text-orange-200 mb-6">
+            Are you sure you want to delete
+            <span
+              id="delete-contact-name"
+              class="font-semibold text-red-600 dark:text-red-400"
+            ></span
+            >? This action cannot be undone.
+          </p>
+          <div class="flex gap-3 justify-end">
+            <button
+              onclick="closeDeleteModal()"
+              class="cursor-pointer px-4 py-2 bg-stone-300 dark:bg-stone-600 text-amber-900 dark:text-orange-200 rounded-lg hover:bg-stone-400 dark:hover:bg-stone-700 transition-colors duration-200"
+            >
+              Cancel
+            </button>
+            <a
+              id="confirm-delete-btn"
+              href="#"
+              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200"
+            >
+              Delete
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script id="script">
@@ -331,6 +373,32 @@
         // Restore body scroll
         document.body.style.overflow = "auto";
       }
+
+      function openDeleteModal(element) {
+        const id = element.getAttribute("data-id");
+        const name = element.getAttribute("data-name");
+
+        document.getElementById("delete-contact-name").textContent = name;
+        document.getElementById(
+          "confirm-delete-btn"
+        ).href = `/user/contacts/delete/${id}`;
+        document.getElementById("delete-contact-modal").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeDeleteModal() {
+        document.getElementById("delete-contact-modal").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      // Close delete modal when clicking outside
+      document
+        .getElementById("delete-contact-modal")
+        ?.addEventListener("click", function (event) {
+          if (event.target === this) {
+            closeDeleteModal();
+          }
+        });
 
       // Close modal when clicking outside
       document.addEventListener("click", function (event) {
