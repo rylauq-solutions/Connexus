@@ -69,10 +69,6 @@ public class ContactController {
         // Form to Contact
         User user = userService.getUserByEmail(username);
 
-        // Process profile image upload
-        String fileName = UUID.randomUUID().toString();
-        String fileURL = imageService.uploadContactImage(contactForm.getContactImage(), fileName);
-
         Contact contact = new Contact();
         contact.setName(contactForm.getName());
         contact.setFavorite(contactForm.isFavorite());
@@ -83,14 +79,23 @@ public class ContactController {
         contact.setUser(user);
         contact.setLinkedInLink(contactForm.getLinkedInLink());
         contact.setWebsiteLink(contactForm.getWebsiteLink());
-        contact.setPicture(fileURL);
-        contact.setCloudinaryImagepublicId(fileName);
+
+        // Process profile image upload ONLY if file is provided
+        if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
+            String fileName = UUID.randomUUID().toString();
+            String fileURL = imageService.uploadContactImage(contactForm.getContactImage(), fileName);
+            contact.setPicture(fileURL);
+            contact.setCloudinaryImagepublicId(fileName);
+            logger.info("Contact image uploaded: {}", fileURL);
+        } else {
+            // Set default image if no image uploaded
+            contact.setPicture("https://i.pinimg.com/736x/f2/d6/d2/f2d6d26e83996554e9334afd3c730dbe.jpg");
+            logger.info("No image provided, using default image");
+        }
 
         // Saving to database
         contactService.saveContact(contact);
         System.out.println(contactForm);
-
-        // todo Set the contact picture URL
 
         // Set success message
         session.setAttribute("message",
